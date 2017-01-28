@@ -5,10 +5,12 @@
  */
 package com.javaquiz.views;
 
+import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import com.javaquiz.Javaquiz;
 import com.javaquiz.model.Chapter;
 import com.javaquiz.model.Chapters;
 import java.io.IOException;
@@ -27,8 +29,20 @@ public class ChapterView extends View {
     
     @Override
     protected void updateAppBar(AppBar appBar) {
-        appBar.setNavIcon(MaterialDesignIcon.STAR.button());
+        appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
+            MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
+        appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e -> 
+            MobileApplication.getInstance().switchToPreviousView()));
         appBar.setTitleText("Chapters");
+                
+    }
+    
+    public View getView(String name) {
+        return new ChapterView(name);
+    }
+
+    public View getView() {
+        return new ChapterView("Chapters");
     }
     
 }
