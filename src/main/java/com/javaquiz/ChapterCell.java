@@ -19,6 +19,8 @@ import com.javaquiz.model.Chapter;
 public class ChapterCell extends CharmListCell<Chapter> {
     private final ListTile tile;
     
+    // TODO: custom numbering graphics
+    
     public ChapterCell() {
         this.tile = new ListTile();
         tile.setPrimaryGraphic(MaterialDesignIcon.BOOK.graphic());

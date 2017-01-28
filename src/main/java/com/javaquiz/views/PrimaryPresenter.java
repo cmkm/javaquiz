@@ -25,9 +25,9 @@ public class PrimaryPresenter {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
                         MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
-                appBar.setTitleText("Primary");
-                appBar.getActionItems().add(MaterialDesignIcon.SEARCH.button(e -> 
-                        System.out.println("Search")));
+                appBar.setTitleText("Home");
+                // appBar.getActionItems().add(MaterialDesignIcon.SEARCH.button(e -> 
+                //        System.out.println("Search")));
             }
         });
         

@@ -7,6 +7,7 @@ import com.javaquiz.views.SectionView;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.layout.layer.SidePopupView;
 import com.gluonhq.charm.glisten.visual.Swatch;
+import com.javaquiz.views.QuestionView;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ public class Javaquiz extends MobileApplication {
     public static final String SECONDARY_VIEW = "Secondary View";
     public static final String CHAPTER_VIEW = "Chapter View";
     public static final String SECTION_VIEW = "Section View";
+    public static final String QUESTION_VIEW = "Question View";
     public static final String MENU_LAYER = "Side Menu";
     
     @Override
@@ -25,6 +27,7 @@ public class Javaquiz extends MobileApplication {
         addViewFactory(SECONDARY_VIEW, () -> new SecondaryView(SECONDARY_VIEW).getView());
         addViewFactory(CHAPTER_VIEW, () -> new ChapterView(CHAPTER_VIEW).getView());
         addViewFactory(SECTION_VIEW, () -> new SectionView(SECTION_VIEW).getView());
+        addViewFactory(QUESTION_VIEW, () -> new QuestionView(QUESTION_VIEW).getView());
         
         addLayerFactory(MENU_LAYER, () -> new SidePopupView(new DrawerManager().getDrawer()));
     }

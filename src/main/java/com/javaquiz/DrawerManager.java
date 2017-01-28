@@ -14,6 +14,7 @@ import static com.javaquiz.Javaquiz.MENU_LAYER;
 import static com.javaquiz.Javaquiz.PRIMARY_VIEW;
 import static com.javaquiz.Javaquiz.SECONDARY_VIEW;
 import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
+import static com.javaquiz.Javaquiz.QUESTION_VIEW;
 import static com.javaquiz.Javaquiz.SECTION_VIEW;
 
 import javafx.scene.Node;
@@ -26,16 +27,17 @@ public class DrawerManager {
     public DrawerManager() {
         this.drawer = new NavigationDrawer();
         
-        NavigationDrawer.Header header = new NavigationDrawer.Header("Gluon Mobile",
-                "Multi View Project",
-                new Avatar(21, new Image(DrawerManager.class.getResourceAsStream("/icon.png"))));
+        NavigationDrawer.Header header = new NavigationDrawer.Header("Java Quiz",
+                "10th ed.",
+                new Avatar(21, new Image(DrawerManager.class.getResourceAsStream("/book.jpg"))));
         drawer.setHeader(header);
         
         final Item primaryItem = new ViewItem("Home", MaterialDesignIcon.HOME.graphic(), PRIMARY_VIEW, ViewStackPolicy.SKIP);
         final Item secondaryItem = new ViewItem("Secondary", MaterialDesignIcon.DASHBOARD.graphic(), SECONDARY_VIEW);
         final Item chapterItem = new ViewItem("Chapters", MaterialDesignIcon.BOOK.graphic(), CHAPTER_VIEW);
         final Item sectionItem = new ViewItem("Sections", MaterialDesignIcon.ASSIGNMENT.graphic(), SECTION_VIEW);
-        drawer.getItems().addAll(primaryItem, chapterItem, sectionItem);
+        final Item questionItem = new ViewItem("Questions", MaterialDesignIcon.QUESTION_ANSWER.graphic(), QUESTION_VIEW);
+        drawer.getItems().addAll(primaryItem, chapterItem, sectionItem, questionItem);
         
         if (Platform.isDesktop()) {
             final Item quitItem = new Item("Quit", MaterialDesignIcon.EXIT_TO_APP.graphic());

@@ -10,6 +10,7 @@ import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import com.javaquiz.ChapterCell;
 import com.javaquiz.Javaquiz;
 import com.javaquiz.model.Chapter;
 import com.javaquiz.model.Chapters;
@@ -24,6 +25,7 @@ public class ChapterView extends View {
         super(name);
         
         charmListView = new CharmListView<>(Chapters.chapterList);
+        // charmListView.setCellFactory(p -> new ChapterCell());
         setCenter(charmListView);
     }
     
