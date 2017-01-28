@@ -1,1 +1,5 @@
 .gradle/
+.nb-build/
+.DS_Store
+build/
+
