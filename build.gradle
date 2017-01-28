@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.javafxports:jfxmobile-plugin:1.2.0'
+        classpath 'mysql:mysql-connector-java:5.1.23'
     }
 }
 
@@ -20,6 +21,8 @@ mainClassName = 'com.javaquiz.Javaquiz'
 
 dependencies {
     compile 'com.gluonhq:charm:4.2.0'
+    runtime "mysql:mysql-connector-java:5.1.37"
+    
 }
 
 jfxmobile {
