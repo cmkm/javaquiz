@@ -41,5 +41,6 @@ jfxmobile {
                 'javax.json.**.*',
                 'org.glassfish.json.**.*'
         ]
+        iosProvisioningProfile = "iOS Team Provisioning Profile: csci5520.javaquiz"
     }
 }
