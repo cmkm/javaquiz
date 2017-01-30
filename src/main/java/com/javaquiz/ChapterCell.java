@@ -10,6 +10,8 @@ import com.gluonhq.charm.glisten.control.ListTile;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 
 import com.javaquiz.model.Chapter;
+import javax.swing.event.DocumentEvent.EventType;
+import javax.swing.event.HyperlinkEvent;
 
 
 /**
@@ -25,6 +27,9 @@ public class ChapterCell extends CharmListCell<Chapter> {
         this.tile = new ListTile();
         tile.setPrimaryGraphic(MaterialDesignIcon.BOOK.graphic());
         setText(null);
+                tile.setOnMouseClicked(e -> {
+            System.out.println("HERE");
+        });
     }
     
     @Override
@@ -34,6 +39,7 @@ public class ChapterCell extends CharmListCell<Chapter> {
             tile.textProperty().setAll(item.getId() + ": " + item.getName());
             
         }
-        
+
+        setGraphic(tile);
     }
 }

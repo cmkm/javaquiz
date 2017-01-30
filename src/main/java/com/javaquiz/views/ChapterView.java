@@ -14,8 +14,6 @@ import com.javaquiz.ChapterCell;
 import com.javaquiz.Javaquiz;
 import com.javaquiz.model.Chapter;
 import com.javaquiz.model.Chapters;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
 
 public class ChapterView extends View {
 
@@ -23,22 +21,21 @@ public class ChapterView extends View {
 
     public ChapterView(String name) {
         super(name);
-        
         charmListView = new CharmListView<>(Chapters.chapterList);
-        // charmListView.setCellFactory(p -> new ChapterCell());
+        charmListView.setCellFactory(p -> new ChapterCell());
         setCenter(charmListView);
     }
-    
+
     @Override
     protected void updateAppBar(AppBar appBar) {
-        appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
-            MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
-        appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e -> 
-            MobileApplication.getInstance().switchToPreviousView()));
+        appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
+                -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
+        appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
+                -> MobileApplication.getInstance().switchToPreviousView()));
         appBar.setTitleText("Chapters");
-                
+
     }
-    
+
     public View getView(String name) {
         return new ChapterView(name);
     }
@@ -46,5 +43,5 @@ public class ChapterView extends View {
     public View getView() {
         return new ChapterView("Chapters");
     }
-    
+
 }
