@@ -10,34 +10,62 @@ package com.javaquiz.model;
  * @author cmkm
  */
 public class Answer {
-    
-    private int id;
-    private int question_id;
+    private String chapter_id;
+    private String answer_id;
+    private String question_id;
+    private String section_id;
     private String text;
     private Boolean correct;
     private Boolean selected;
-    
-    public Answer(int id, int question_id, String text, Boolean correct, Boolean selected) {
-        this.id = id;
+
+    public Answer(String chapter_id, String answer_id, String question_id, String section_id, String text, Boolean correct, Boolean selected) {
+        this.chapter_id = chapter_id;
+        this.answer_id = answer_id;
         this.question_id = question_id;
+        this.section_id = section_id;
         this.text = text;
         this.correct = correct;
         this.selected = selected;
     }
     
-    public int getId() {
-        return id;
+    public String getChapter_id() {
+        return chapter_id;
+    }
+
+    public void setChapter_id(String chapter_id) {
+        this.chapter_id = chapter_id;
+    }
+
+    public String getAnswer_id() {
+        return answer_id;
+    }
+
+    public void setAnswer_id(String answer_id) {
+        this.answer_id = answer_id;
+    }
+
+    public String getQuestion_id() {
+        return question_id;
+    }
+
+    public void setQuestion_id(String question_id) {
+        this.question_id = question_id;
+    }
+
+    public String getSection_id() {
+        return section_id;
+    }
+
+    public void setSection_id(String section_id) {
+        this.section_id = section_id;
     }
     
-    public void setId(int id) {
-        this.id = id;
-    }
     
-    public int getQuestionId() {
+    public String getQuestionId() {
         return question_id;
     }
     
-    public void setQuestionId(int question_id) {
+    public void setQuestionId(String question_id) {
         this.question_id = question_id;
     }
 
@@ -67,7 +95,7 @@ public class Answer {
 
     @Override
     public String toString() {
-        return id + ": " + text;
+        return answer_id + ": " + text;
     }
     
 }

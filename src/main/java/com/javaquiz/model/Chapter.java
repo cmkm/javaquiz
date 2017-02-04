@@ -11,22 +11,25 @@ package com.javaquiz.model;
  */
 public class Chapter {
 
-    private int id;
+    private String chapter_id;
     private String name;
 
-    public Chapter(int id, String name) {
-        this.id = id;
+    public Chapter(String chapter_id, String name) {
+        this.chapter_id = chapter_id;
         this.name = name;
     }
-    
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
+
+    public String getChapter_id() {
+        return chapter_id;
     }
 
+    public void setChapter_id(String chapter_id) {
+        this.chapter_id = chapter_id;
+    }
+
+   
+    
+   
     public String getName() {
         return name;
     }
@@ -37,7 +40,7 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return id + ": " + name;
+        return chapter_id + ": " + name;
     }
 
 }

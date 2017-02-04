@@ -38,7 +38,7 @@ public class GenerateRadioButtons extends Application {
 
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "james", "abc123");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "phillip", "abc123");
             
             System.out.println("Database connected");
             preparedQuestion = connection.prepareStatement("Select questionId, text from Question where chapterId = ? and sectionId = ?");
@@ -121,7 +121,7 @@ public class GenerateRadioButtons extends Application {
     public void updateSelect(String select) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "james", "abc123");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "phillip", "abc123");
             stmt = connection.createStatement();
             String query = "Update Answer set selected = 1 where text = " + select;
             stmt.executeUpdate(query);

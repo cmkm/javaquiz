@@ -29,7 +29,7 @@ public class SectionCell extends CharmListCell<Section> {
     public void updateItem(Section item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null && !empty) {
-            tile.textProperty().setAll(item.getId() + ": " + item.getName());
+            tile.textProperty().setAll(item.getSection_id() + ": " + item.getName());
             
         }
         

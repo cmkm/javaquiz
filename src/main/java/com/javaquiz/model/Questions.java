@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  */
 public class Questions {
         public static ObservableList<Question> questionList = FXCollections.observableArrayList(
-            new Question(1, 1, "Question one?", false, "Here's a hint"), 
-            new Question(2, 1, "Question two?", false, "Here's a hint")
+            new Question("1", "1", "1", "Question one?", false, "Here's a hint", ""), 
+            new Question("2", "1", "1", "Question one?", false, "Here's a hint", "")
     );
 }

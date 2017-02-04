@@ -44,12 +44,12 @@ public class Javaquiz extends MobileApplication {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "james", "abc123");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "phillip", "abc123");
             Statement stmt = connection.createStatement();
             String getChapters = "Select * from chapter";
             ResultSet rset = stmt.executeQuery(getChapters);
             while (rset.next()) {
-                Chapters.chapterList.add(new Chapter(rset.getInt(1), String.valueOf(rset.getObject(2))));
+                Chapters.chapterList.add(new Chapter(rset.getString(1), String.valueOf(rset.getObject(2))));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");
