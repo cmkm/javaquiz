@@ -14,7 +14,5 @@ import javafx.collections.ObservableList;
  */
 public class Sections {
     public static ObservableList<Section> sectionList = FXCollections.observableArrayList(
-            new Section(1, 1, "1.1 First section"), 
-            new Section(1, 2, "1.2 Second section")
     );
 }

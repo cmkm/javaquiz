@@ -7,7 +7,6 @@ package com.javaquiz.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import com.javaquiz.model.Question;
 
 /**
  *

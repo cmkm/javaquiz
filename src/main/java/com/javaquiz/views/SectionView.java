@@ -6,12 +6,8 @@ import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
-import com.javaquiz.model.Chapter;
-import com.javaquiz.model.Chapters;
 import com.javaquiz.model.Section;
 import com.javaquiz.model.Sections;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
 
 public class SectionView extends View {
 

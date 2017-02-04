@@ -8,7 +8,6 @@ package com.javaquiz;
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
-import com.javaquiz.model.Chapter;
 import com.javaquiz.model.Section;
 
 /**

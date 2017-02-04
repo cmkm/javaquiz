@@ -17,10 +17,10 @@ import com.javaquiz.model.Chapters;
 
 public class ChapterView extends View {
 
-    private final CharmListView<Chapter, Integer> charmListView;
+    public static CharmListView<Chapter, Integer> charmListView;
 
     public ChapterView(String name) {
-        super(name);
+        super(name);        
         charmListView = new CharmListView<>(Chapters.chapterList);
         charmListView.setCellFactory(p -> new ChapterCell());
         setCenter(charmListView);
