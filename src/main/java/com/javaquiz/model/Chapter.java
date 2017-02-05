@@ -14,6 +14,7 @@ public class Chapter {
     private String chapter_id;
     private String name;
 
+    
     public Chapter(String chapter_id, String name) {
         this.chapter_id = chapter_id;
         this.name = name;
@@ -26,9 +27,7 @@ public class Chapter {
     public void setChapter_id(String chapter_id) {
         this.chapter_id = chapter_id;
     }
-
    
-    
    
     public String getName() {
         return name;
