@@ -15,23 +15,31 @@ import com.javaquiz.model.Section;
  * @author cmkm
  */
 public class SectionCell extends CharmListCell<Section> {
+
     private final ListTile tile;
-    
+
     // TODO: custom completion graphics
-    
     public SectionCell() {
         this.tile = new ListTile();
         tile.setPrimaryGraphic(MaterialDesignIcon.ASSIGNMENT.graphic());
         setText(null);
+        tile.setOnMouseClicked(e -> {
+            String id = super.itemProperty().getValue().getSection_id();
+            System.out.println(id);
+            //populateQuestions(id);
+        });
     }
-    
+
     @Override
     public void updateItem(Section item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null && !empty) {
-            tile.textProperty().setAll(item.getSection_id() + ": " + item.getName());
-            
+            if (item.getName().equals("")) {
+                tile.textProperty().setAll(item.getSection_id());
+            } else {
+                tile.textProperty().setAll(item.getSection_id() + ": " + item.getName());
+            }
         }
-        
+        setGraphic(tile);
     }
 }
