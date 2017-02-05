@@ -31,19 +31,17 @@ public class ChapterCell extends CharmListCell<Chapter> {
         this.tile = new ListTile();
         tile.setPrimaryGraphic(MaterialDesignIcon.BOOK.graphic());
         setText(null);
-        //need to find way to not populate sectionView multiple times
-        //if (Sections.sectionList.size() < 1) {
             tile.setOnMouseClicked(e -> {
                 //populateSections(this.getUserData());
                 String id = super.itemProperty().getValue().getChapter_id();
                 System.out.println(super.itemProperty().getValue().getChapter_id());
                 populateSections(id);
             });
-        //}
     }
 
     public void populateSections(String id) {
         try {
+            Sections.sectionList.clear();
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "phillip", "abc123");

@@ -30,7 +30,7 @@ public class SectionView extends View {
                 
     }
     
-    public View getView(String name) {
+    public View getView(String name) {        
         return new SectionView(name);
     }
 
