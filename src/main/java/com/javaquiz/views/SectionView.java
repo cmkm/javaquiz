@@ -6,6 +6,7 @@ import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
+import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
 import com.javaquiz.SectionCell;
 import com.javaquiz.model.Section;
 import com.javaquiz.model.Sections;
@@ -30,7 +31,7 @@ public class SectionView extends View {
         appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
                 -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
-                -> MobileApplication.getInstance().switchToPreviousView()));
+                -> MobileApplication.getInstance().switchView(CHAPTER_VIEW)));
         try {
             appBar.setTitleText(ChapterView.charmListView.getSelectedItem().toString());
         } catch (Exception ex) {

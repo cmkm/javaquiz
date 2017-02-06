@@ -11,6 +11,7 @@ import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
+import static com.javaquiz.Javaquiz.SECTION_VIEW;
 import com.javaquiz.model.Answer;
 import com.javaquiz.model.Answers;
 import com.javaquiz.model.Question;
@@ -42,7 +43,7 @@ public class QuestionView extends View {
         appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
                 -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
-                -> MobileApplication.getInstance().switchToPreviousView()));
+                -> MobileApplication.getInstance().switchView(SECTION_VIEW)));
         try {
             appBar.setTitleText(SectionView.charmListView.getSelectedItem().toString());
         } catch (Exception ex) {

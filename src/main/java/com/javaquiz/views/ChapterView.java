@@ -6,6 +6,7 @@
 package com.javaquiz.views;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
+import static com.gluonhq.charm.glisten.application.MobileApplication.HOME_VIEW;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
@@ -34,7 +35,7 @@ public class ChapterView extends View {
         appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
                 -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
-                -> MobileApplication.getInstance().switchToPreviousView()));
+                -> MobileApplication.getInstance().switchView(HOME_VIEW)));
         appBar.setTitleText("Chapters");
 
     }
