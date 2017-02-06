@@ -14,7 +14,8 @@ import java.util.Comparator;
 public class SectionView extends View {
 //    Comparator<Section> bySection =
 //	(Section o1, Section o2)->Integer.parseInt(o1.getSection_id()) - Integer.parseInt(o2.getSection_id());
-    private final CharmListView<Section, Integer> charmListView;
+
+    public static CharmListView<Section, Integer> charmListView;
 
     public SectionView(String name) {
         super(name);
@@ -23,23 +24,26 @@ public class SectionView extends View {
         charmListView.setCellFactory(p -> new SectionCell());
         setCenter(charmListView);
     }
-    
+
     @Override
     protected void updateAppBar(AppBar appBar) {
-        appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
-            MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
-        appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e -> 
-            MobileApplication.getInstance().switchToPreviousView()));
-        appBar.setTitleText(ChapterView.charmListView.getSelectedItem().toString());
-                
+        appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
+                -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
+        appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
+                -> MobileApplication.getInstance().switchToPreviousView()));
+        try {
+            appBar.setTitleText(ChapterView.charmListView.getSelectedItem().toString());
+        } catch (Exception ex) {
+            appBar.setTitleText("Sections");
+        }
     }
-    
-    public View getView(String name) {        
+
+    public View getView(String name) {
         return new SectionView(name);
     }
 
     public View getView() {
         return new SectionView("Sections");
     }
-    
+
 }

@@ -106,7 +106,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return chapter_id + ": " + text;
+        return question_id + ": " + text;
     }
     
 
