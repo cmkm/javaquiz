@@ -12,6 +12,7 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.SECTION_VIEW;
+import com.javaquiz.QuestionCell;
 import com.javaquiz.model.Answer;
 import com.javaquiz.model.Answers;
 import com.javaquiz.model.Question;
@@ -24,17 +25,18 @@ import javafx.scene.layout.VBox;
  */
 public class QuestionView extends View {
 
-    private final CharmListView<Question, Integer> questionListView;
-    private final CharmListView<Answer, Integer> answerListView;
+    public static CharmListView<Question, Integer> questionListView;
+    //private final CharmListView<Answer, Integer> answerListView;
 
     public QuestionView(String name) {
         super(name);
 
         VBox container = new VBox();
         questionListView = new CharmListView<>(Questions.questionList);
-        answerListView = new CharmListView<>(Answers.answerList);
-        container.getChildren().addAll(questionListView, answerListView);
-        // charmListView.setCellFactory(p -> new ChapterCell());
+        //answerListView = new CharmListView<>(Answers.answerList);
+        //container.getChildren().addAll(questionListView, answerListView);
+        container.getChildren().addAll(questionListView);
+        questionListView.setCellFactory(p -> new QuestionCell());
         setCenter(container);
     }
 

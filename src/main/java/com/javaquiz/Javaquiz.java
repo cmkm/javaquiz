@@ -10,6 +10,7 @@ import com.gluonhq.charm.glisten.visual.Swatch;
 import com.javaquiz.model.Chapter;
 import com.javaquiz.model.Chapters;
 import com.javaquiz.views.QuestionView;
+import com.javaquiz.views.SingleQuestionView;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ public class Javaquiz extends MobileApplication {
     public static final String SECONDARY_VIEW = "Secondary View";
     public static final String CHAPTER_VIEW = "Chapter View";
     public static final String SECTION_VIEW = "Section View";
+    public static final String QUESTIONS_VIEW = "Questions View";
     public static final String QUESTION_VIEW = "Question View";
     public static final String MENU_LAYER = "Side Menu";
 
@@ -35,7 +37,8 @@ public class Javaquiz extends MobileApplication {
         addViewFactory(SECONDARY_VIEW, () -> new SecondaryView(SECONDARY_VIEW).getView());
         addViewFactory(CHAPTER_VIEW, () -> new ChapterView(CHAPTER_VIEW).getView());
         addViewFactory(SECTION_VIEW, () -> new SectionView(SECTION_VIEW).getView());
-        addViewFactory(QUESTION_VIEW, () -> new QuestionView(QUESTION_VIEW).getView());
+        addViewFactory(QUESTIONS_VIEW, () -> new QuestionView(QUESTIONS_VIEW).getView());
+        addViewFactory(QUESTION_VIEW, () -> new SingleQuestionView(QUESTION_VIEW).getView());
 
         addLayerFactory(MENU_LAYER, () -> new SidePopupView(new DrawerManager().getDrawer()));
     }
