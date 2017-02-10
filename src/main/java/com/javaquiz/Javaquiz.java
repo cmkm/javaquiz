@@ -44,7 +44,7 @@ public class Javaquiz extends MobileApplication {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "root", "catfood");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
             Statement stmt = connection.createStatement();
             String getChapters = "Select * from chapter";
             ResultSet rset = stmt.executeQuery(getChapters);

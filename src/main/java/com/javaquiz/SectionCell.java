@@ -59,7 +59,7 @@ public class SectionCell extends CharmListCell<Section> {
             Questions.questionList.clear();
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "root", "catfood");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
             Statement stmt = connection.createStatement();
             String getSections = "Select * from question where chapterId = " + chapterId + " and sectionId = " + sectionId;
             ResultSet rset = stmt.executeQuery(getSections);
