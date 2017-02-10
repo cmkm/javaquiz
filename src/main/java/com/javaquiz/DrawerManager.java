@@ -14,6 +14,7 @@ import static com.javaquiz.Javaquiz.MENU_LAYER;
 import static com.javaquiz.Javaquiz.PRIMARY_VIEW;
 import static com.javaquiz.Javaquiz.SECONDARY_VIEW;
 import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
+import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
 import static com.javaquiz.Javaquiz.QUESTION_VIEW;
 import static com.javaquiz.Javaquiz.SECTION_VIEW;
 
@@ -36,7 +37,7 @@ public class DrawerManager {
         final Item secondaryItem = new ViewItem("Secondary", MaterialDesignIcon.DASHBOARD.graphic(), SECONDARY_VIEW);
         final Item chapterItem = new ViewItem("Chapters", MaterialDesignIcon.BOOK.graphic(), CHAPTER_VIEW);
         final Item sectionItem = new ViewItem("Sections", MaterialDesignIcon.ASSIGNMENT.graphic(), SECTION_VIEW);
-        final Item questionItem = new ViewItem("Questions", MaterialDesignIcon.QUESTION_ANSWER.graphic(), QUESTION_VIEW);
+        final Item questionItem = new ViewItem("Questions", MaterialDesignIcon.QUESTION_ANSWER.graphic(), QUESTIONS_VIEW);
         drawer.getItems().addAll(primaryItem, chapterItem, sectionItem, questionItem);
         
         if (Platform.isDesktop()) {

@@ -8,7 +8,7 @@ package com.javaquiz;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
-import static com.javaquiz.Javaquiz.QUESTION_VIEW;
+import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
 import static com.javaquiz.Javaquiz.SECTION_VIEW;
 import com.javaquiz.model.Question;
 import com.javaquiz.model.Questions;
@@ -37,7 +37,7 @@ public class SectionCell extends CharmListCell<Section> {
             String chapterId = super.itemProperty().getValue().getChapter_id();
             System.out.println(sectionId + ": " + chapterId);
             populateQuestions(sectionId, chapterId);
-            MobileApplication.getInstance().switchView(QUESTION_VIEW);
+            MobileApplication.getInstance().switchView(QUESTIONS_VIEW);
         });
     }
 
@@ -59,9 +59,9 @@ public class SectionCell extends CharmListCell<Section> {
             Questions.questionList.clear();
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "root", "catfood");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
             Statement stmt = connection.createStatement();
-            String getSections = "Select * from question where chapterId = " + chapterId + " and sectionId = " + sectionId;
+            String getSections = "Select * from question where chapterId = " + chapterId + " and sectionId = '" + sectionId+ "'";
             ResultSet rset = stmt.executeQuery(getSections);
             while (rset.next()) {
                 Questions.questionList.add(new Question(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), 

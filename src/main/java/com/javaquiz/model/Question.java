@@ -108,6 +108,4 @@ public class Question {
     public String toString() {
         return question_id + ": " + text;
     }
-    
-
 }
