@@ -19,13 +19,25 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Comparator;
 
 /**
  *
  * @author cmkm
  */
+
 public class ChapterCell extends CharmListCell<Chapter> {
 
+    Comparator<Section> bySection =
+	(Section o1, Section o2)->{
+            String id1 = o1.getSection_id();
+            String id2 = o2.getSection_id();
+            String[] tokens1 = id1.split("-");
+            String[] tokens2 = id2.split("-");
+            
+            return Integer.parseInt(tokens1[0]) - Integer.parseInt(tokens2[0]);
+        };
+        
     private final ListTile tile;
 
     // TODO: custom numbering graphics
@@ -53,6 +65,7 @@ public class ChapterCell extends CharmListCell<Chapter> {
             while (rset.next()) {
                 Sections.sectionList.add(new Section(rset.getString(1), rset.getString(2), String.valueOf(rset.getObject(3))));
             }
+            Sections.sectionList.sort(bySection);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");
         }
