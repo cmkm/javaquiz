@@ -36,6 +36,7 @@ public class SingleQuestionView extends View {
     public static CharmListView<SingleQuestion, Integer> questionView;
     public static CharmListView<RadioButton, Integer> radioView;
     public static ListView<Button> buttonView;
+    public static ListView<Button> hintView;
     public static ToggleButtonGroup tbg;
     String choices = "abcdefghijklmnopqrstuvwxyz";
 
@@ -62,9 +63,8 @@ public class SingleQuestionView extends View {
         buttonView.setOrientation(Orientation.HORIZONTAL);
         buttonView.getItems().get(0).setOnAction(e -> checkAnswer());
         buttonView.getItems().get(1).setOnAction(e -> getNextQuestion());
-        if (buttonView.getItems().size()>2) {
-            buttonView.getItems().get(2).setOnAction(e -> showHint());
-        }
+       // hintView = new ListView<>(SingleQuestions.hintList);
+        //hintView.getItems().get(0).setOnAction(e -> showHint());
         container.getChildren().add(buttonView);
         setCenter(container);
     }

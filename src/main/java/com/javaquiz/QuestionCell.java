@@ -99,11 +99,12 @@ public class QuestionCell extends CharmListCell<Question> {
             SingleQuestions.questionList.add(new SingleQuestion(questionId, chapterId, sectionId, qText,
                     hint, key, tbg, tbs));
             System.out.println(SingleQuestions.questionList.get(0).getTBS().get(0));
+            SingleQuestions.hintList.clear();
             try {
                 if (hint.length() > 0) {
                     Image light_img = new Image(getClass().getResourceAsStream("/light.png"));
                     Button hintButton = new Button("", new ImageView(light_img));
-                    SingleQuestions.buttonList.add(hintButton);
+                    SingleQuestions.hintList.add(hintButton);
                 }
             } catch (Exception ex) {
                 System.out.println("No hint avaliable");

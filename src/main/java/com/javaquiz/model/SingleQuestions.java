@@ -34,6 +34,7 @@ public class SingleQuestions {
     );
     public static ObservableList<Button> buttonList = FXCollections.observableArrayList(
             SUBMIT, NEXT);
+        public static ObservableList<Button> hintList = FXCollections.observableArrayList();
 //    public void SingleQuestions() {
 //        SUBMIT.setOnAction(e -> checkAnswer());
 //    }
