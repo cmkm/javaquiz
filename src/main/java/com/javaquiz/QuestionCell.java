@@ -6,6 +6,7 @@
 package com.javaquiz;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
+import com.gluonhq.charm.glisten.control.Alert;
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
@@ -13,6 +14,7 @@ import static com.javaquiz.Javaquiz.QUESTION_VIEW;
 import com.javaquiz.model.Question;
 import com.javaquiz.model.SingleQuestion;
 import com.javaquiz.model.SingleQuestions;
+import static com.javaquiz.model.SingleQuestions.questionList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -49,7 +51,9 @@ public class QuestionCell extends CharmListCell<Question> {
             String key = super.itemProperty().getValue().getKeyLetter();
             String hint = super.itemProperty().getValue().getHString();
             System.out.println(sectionId + ": " + chapterId);
-            popSpecificQuestion(sectionId, chapterId, questionId, qText, key, hint);
+            Image light = new Image(getClass().getResourceAsStream("/light.png"));
+            Image bigLight = new Image(getClass().getResourceAsStream("/bigLight.png"));
+            popSpecificQuestion(sectionId, chapterId, questionId, qText, key, hint, light, bigLight);
 
             MobileApplication.getInstance().switchView(QUESTION_VIEW);
         });
@@ -64,8 +68,8 @@ public class QuestionCell extends CharmListCell<Question> {
         setGraphic(tile);
     }
 
-    public void popSpecificQuestion(String sectionId, String chapterId, String questionId,
-            String qText, String key, String hint) {
+    public static void popSpecificQuestion(String sectionId, String chapterId, String questionId,
+            String qText, String key, String hint, Image light, Image bigLight) {
         try {
             ToggleButtonGroup tbg = new ToggleButtonGroup();
             if (key.length() > 1) {
@@ -92,18 +96,15 @@ public class QuestionCell extends CharmListCell<Question> {
                 SingleQuestions.radioList.add(tg);
                 tbg.getToggles().add(tg);
                 i++;
-                //Sections.sectionList.add(new Section(rset.getString(1), rset.getString(2), String.valueOf(rset.getObject(3))));
             }
-            System.out.println("tbs size: " + tbs.get(0));
-            System.out.println("tbg toggles: " + tbg.getToggles());
             SingleQuestions.questionList.add(new SingleQuestion(questionId, chapterId, sectionId, qText,
                     hint, key, tbg, tbs));
-            System.out.println(SingleQuestions.questionList.get(0).getTBS().get(0));
             SingleQuestions.hintList.clear();
             try {
                 if (hint.length() > 0) {
-                    Image light_img = new Image(getClass().getResourceAsStream("/light.png"));
-                    Button hintButton = new Button("", new ImageView(light_img));
+                    
+                    Button hintButton = new Button("", new ImageView(light));
+                    hintButton.setOnAction(e -> showHint(bigLight));
                     SingleQuestions.hintList.add(hintButton);
                 }
             } catch (Exception ex) {
@@ -112,5 +113,11 @@ public class QuestionCell extends CharmListCell<Question> {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");
         }
+    }
+
+    public static void showHint(Image light) {
+        Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, questionList.get(0).getHString());
+        alert.setGraphic(new ImageView(light));
+        alert.showAndWait();
     }
 }

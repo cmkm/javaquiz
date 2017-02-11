@@ -14,6 +14,7 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
+import com.javaquiz.QuestionCell;
 import com.javaquiz.SingleQuestionCell;
 import com.javaquiz.model.SingleQuestion;
 import com.javaquiz.model.SingleQuestions;
@@ -40,18 +41,13 @@ public class SingleQuestionView extends View {
     public static ToggleButtonGroup tbg;
     String choices = "abcdefghijklmnopqrstuvwxyz";
 
-    //private final CharmListView<Answer, Integer> answerListView;
     public SingleQuestionView(String name) {
         super(name);
         VBox container = new VBox();
         ArrayList<RadioButton> tbs = new ArrayList<>();
-        //container.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-
         questionView = new CharmListView<>(SingleQuestions.questionList);
         questionView.setMaxHeight(150);
         questionView.setMinHeight(150);
-        //answerListView = new CharmListView<>(Answers.answerList);
-        //container.getChildren().addAll(questionListView, answerListView);
         container.getChildren().add(questionView);
         //Cell Factory isn't necessary but provides easy word wrap option for text
         questionView.setCellFactory(p -> new SingleQuestionCell());
@@ -63,18 +59,12 @@ public class SingleQuestionView extends View {
         buttonView.setOrientation(Orientation.HORIZONTAL);
         buttonView.getItems().get(0).setOnAction(e -> checkAnswer());
         buttonView.getItems().get(1).setOnAction(e -> getNextQuestion());
-       // hintView = new ListView<>(SingleQuestions.hintList);
-        //hintView.getItems().get(0).setOnAction(e -> showHint());
+        hintView = new ListView<>(SingleQuestions.hintList);
         container.getChildren().add(buttonView);
+        container.getChildren().add(hintView);
         setCenter(container);
     }
 
-    public void showHint() {
-        Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, questionList.get(0).getHString());
-        Image light_img = new Image(getClass().getResourceAsStream("/bigLight.png"));
-        alert.setGraphic(new ImageView(light_img));
-        alert.showAndWait();
-    }
     public void checkAnswer() {
         Alert alert = null;
         String answer = questionList.get(0).getKeyLetter();
@@ -99,7 +89,13 @@ public class SingleQuestionView extends View {
 
     public void getNextQuestion() {
         System.out.println("TESTING HERE");
-        System.out.println(QuestionView.questionListView.selectedItemProperty().getValue());
+        System.out.println(QuestionView.questionListView.selectedItemProperty().getName());
+        Image light = new Image(getClass().getResourceAsStream("/light.png"));
+        Image bigLight = new Image(getClass().getResourceAsStream("/bigLight.png"));
+        //String section = QuestionView.questionListView.selectedItemProperty().getValue();
+//        String section = QuestionView.questionListView.selectedItemProperty().getValue().getSectionId();
+//        String section = QuestionView.questionListView.selectedItemProperty().getValue().getSectionId();
+ //       QuestionCell.popSpecificQuestion(section, "1", "1", "test", "a", "hint", light, bigLight);
 //        QuestionView.questionListView.setSelectedItem(40);        
     }
 

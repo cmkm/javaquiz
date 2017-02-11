@@ -25,7 +25,7 @@ public class SingleQuestions {
 
     public static ToggleButtonGroup tbg = new ToggleButtonGroup();
     public static ArrayList<RadioButton> tbs = new ArrayList<>();
-    public static final Button SUBMIT = new Button("Submit");
+    public static final Button SUBMIT = new Button("Submit");    
     public static final Button NEXT = new Button("Next");    
     public static ObservableList<RadioButton> radioList = FXCollections.observableArrayList();
     public static ObservableList<SingleQuestion> questionList = FXCollections.observableArrayList(
