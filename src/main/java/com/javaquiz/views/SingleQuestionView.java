@@ -14,8 +14,10 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
+import static com.javaquiz.Javaquiz.SECTION_VIEW;
 import com.javaquiz.QuestionCell;
 import com.javaquiz.SingleQuestionCell;
+import com.javaquiz.model.Question;
 import com.javaquiz.model.SingleQuestion;
 import com.javaquiz.model.SingleQuestions;
 import static com.javaquiz.model.SingleQuestions.questionList;
@@ -54,6 +56,8 @@ public class SingleQuestionView extends View {
         tbg = SingleQuestions.questionList.get(0).getTBG();
         container.getChildren().add(tbg);
         radioView = new CharmListView<>(SingleQuestions.radioList);
+        radioView.setMaxHeight(300);
+        radioView.setMinHeight(200);
         container.getChildren().add(radioView);
         buttonView = new ListView<>(SingleQuestions.buttonList);
         buttonView.setOrientation(Orientation.HORIZONTAL);
@@ -88,15 +92,31 @@ public class SingleQuestionView extends View {
     }
 
     public void getNextQuestion() {
-        System.out.println("TESTING HERE");
-        System.out.println(QuestionView.questionListView.selectedItemProperty().getName());
+        try {
         Image light = new Image(getClass().getResourceAsStream("/light.png"));
         Image bigLight = new Image(getClass().getResourceAsStream("/bigLight.png"));
-        //String section = QuestionView.questionListView.selectedItemProperty().getValue();
-//        String section = QuestionView.questionListView.selectedItemProperty().getValue().getSectionId();
-//        String section = QuestionView.questionListView.selectedItemProperty().getValue().getSectionId();
- //       QuestionCell.popSpecificQuestion(section, "1", "1", "test", "a", "hint", light, bigLight);
-//        QuestionView.questionListView.setSelectedItem(40);        
+        int question = QuestionView.questionListView.itemsProperty().lastIndexOf(QuestionView.questionListView.getSelectedItem());
+        System.out.println(question);
+        Question nextQuestion = QuestionView.questionListView.itemsProperty().getValue().get(question+1);
+        
+        String sectionId = nextQuestion.getSectionId();
+        String chapterId = nextQuestion.getChapter_id();
+        String questionId = nextQuestion.getQuestion_id();
+        String text = nextQuestion.getText();
+        String key = nextQuestion.getKeyLetter();
+        String hint = nextQuestion.getHString(); 
+        QuestionView.questionListView.setSelectedItem(nextQuestion);
+        QuestionCell.popSpecificQuestion(sectionId, chapterId, questionId, text, key, hint, light, bigLight);
+        //need to update appbar to new questionId
+        //appBar.setTitleText(QuestionView.questionListView.getSelectedItem().getQuestion_id());
+        } 
+        catch (Exception ex) {
+            MobileApplication.getInstance().switchView(SECTION_VIEW);
+            Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, 
+                    "There are no more questions in this section, please choose a new section.");
+            alert.showAndWait();
+        }
+        //QuestionView.questionListView.setSelectedItem(40);        
     }
 
     @Override

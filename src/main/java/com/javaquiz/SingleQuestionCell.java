@@ -27,8 +27,11 @@ public class SingleQuestionCell extends CharmListCell<SingleQuestion> {
     @Override
     public void updateItem(SingleQuestion item, boolean empty) {
         super.updateItem(item, empty);
-        if (item != null && !empty) {
+        if (item != null && !empty) {            
             tile.textProperty().setAll(item.getText());
+            if (item.getKeyLetter().length() > 1) {
+                tile.textProperty().add(" Select all that apply.");
+            }
             tile.wrapTextProperty().set(true);
             setGraphic(tile);
         }
