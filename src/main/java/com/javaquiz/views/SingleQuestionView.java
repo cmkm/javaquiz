@@ -106,6 +106,7 @@ public class SingleQuestionView extends View {
         String key = nextQuestion.getKeyLetter();
         String hint = nextQuestion.getHString(); 
         QuestionView.questionListView.setSelectedItem(nextQuestion);
+        MobileApplication.getInstance().getAppBar().setTitleText(QuestionView.questionListView.getSelectedItem().getQuestion_id());
         QuestionCell.popSpecificQuestion(sectionId, chapterId, questionId, text, key, hint, light, bigLight);
         //need to update appbar to new questionId
         //appBar.setTitleText(QuestionView.questionListView.getSelectedItem().getQuestion_id());
