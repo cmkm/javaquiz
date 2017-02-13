@@ -3,6 +3,7 @@ package com.javaquiz.views;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.mvc.View;
+import com.gluonhq.charm.glisten.visual.GlistenStyleClasses;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ public class PrimaryPresenter {
         primary.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
+                appBar.setStyle("-fx-background-color: #ff516e; -fx-box-shadow: none;");
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
                         MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
                 appBar.setTitleText("Home");

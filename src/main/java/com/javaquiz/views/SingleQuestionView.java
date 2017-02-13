@@ -11,6 +11,7 @@ import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 import com.gluonhq.charm.glisten.mvc.View;
+import com.gluonhq.charm.glisten.visual.GlistenStyleClasses;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
@@ -22,11 +23,14 @@ import com.javaquiz.model.SingleQuestion;
 import com.javaquiz.model.SingleQuestions;
 import static com.javaquiz.model.SingleQuestions.questionList;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -46,6 +50,7 @@ public class SingleQuestionView extends View {
         super(name);
         VBox container = new VBox();
         questionView = new CharmListView<>(SingleQuestions.questionList);
+        questionView.setMouseTransparent(true);
         questionView.setMaxHeight(150);
         questionView.setMinHeight(150);
         container.getChildren().add(questionView);
@@ -58,12 +63,24 @@ public class SingleQuestionView extends View {
         radioView.setMinHeight(200);
         container.getChildren().add(radioView);
         buttonView = new ListView<>(SingleQuestions.buttonList);
+        buttonView.setFocusTraversable(false);
         buttonView.setOrientation(Orientation.HORIZONTAL);
+        
+        // apply styling to SUBMIT and NEXT btns
+        // GlistenStyleClasses.applyStyleClass(buttonView.getItems().get(0), GlistenStyleClasses.BUTTON_FLAT);
+        
+        // apply event handlers to SUBMIT and NEXT btns
         buttonView.getItems().get(0).setOnAction(e -> checkAnswer());
         buttonView.getItems().get(1).setOnAction(e -> getNextQuestion());
         hintView = new ListView<>(SingleQuestions.hintList);
-        container.getChildren().add(buttonView);
-        container.getChildren().add(hintView);
+        hintView.setOrientation(Orientation.HORIZONTAL);
+        
+        HBox hb = new HBox();
+        hb.setAlignment(Pos.CENTER);
+        hb.getChildren().add(buttonView);
+        hb.getChildren().add(hintView);
+        
+        container.getChildren().add(hb);
         setCenter(container);
     }
 

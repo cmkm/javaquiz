@@ -10,6 +10,7 @@ import com.gluonhq.charm.glisten.control.Alert;
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+import com.gluonhq.charm.glisten.visual.GlistenStyleClasses;
 import static com.javaquiz.Javaquiz.QUESTION_VIEW;
 import com.javaquiz.model.Question;
 import com.javaquiz.model.SingleQuestion;
@@ -26,6 +27,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 
 /**
  *
@@ -99,6 +101,8 @@ public class QuestionCell extends CharmListCell<Question> {
                 if (hint.length() > 0) {
                     
                     Button hintButton = new Button("", new ImageView(light));
+                    // hintButton.setStyle("-fx-background-color: #ffffff");
+                    GlistenStyleClasses.applyStyleClass(hintButton, GlistenStyleClasses.BUTTON_FLAT);
                     hintButton.setOnAction(e -> showHint(bigLight));
                     SingleQuestions.hintList.add(hintButton);
                 }

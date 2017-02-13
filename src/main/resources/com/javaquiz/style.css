@@ -1,3 +1,11 @@
 .root {
 
 }
+
+
+
+.button {
+    -fx-background-color: #ff516e;
+    -fx-background-radius: 5;
+    -fx-effect: none;
+}
