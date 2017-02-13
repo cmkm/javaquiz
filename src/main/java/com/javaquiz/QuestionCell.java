@@ -21,11 +21,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -36,7 +34,6 @@ import javafx.scene.image.ImageView;
 public class QuestionCell extends CharmListCell<Question> {
 
     private final ListTile tile;
-//    ObservableList radioList;
 
     // TODO: custom completion graphics
     public QuestionCell() {
@@ -54,7 +51,6 @@ public class QuestionCell extends CharmListCell<Question> {
             Image light = new Image(getClass().getResourceAsStream("/light.png"));
             Image bigLight = new Image(getClass().getResourceAsStream("/bigLight.png"));
             popSpecificQuestion(sectionId, chapterId, questionId, qText, key, hint, light, bigLight);
-
             MobileApplication.getInstance().switchView(QUESTION_VIEW);
         });
     }
@@ -78,7 +74,6 @@ public class QuestionCell extends CharmListCell<Question> {
                 tbg.setSelectionType(SelectionMode.SINGLE);
             }
             ArrayList<RadioButton> tbs = new ArrayList<>();
-
             String choices = "abcdefghijklmnopqrstuvwxyz";
             SingleQuestions.questionList.clear();
             SingleQuestions.radioList.clear();

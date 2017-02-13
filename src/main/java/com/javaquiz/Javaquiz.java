@@ -39,7 +39,6 @@ public class Javaquiz extends MobileApplication {
         addViewFactory(SECTION_VIEW, () -> new SectionView(SECTION_VIEW).getView());
         addViewFactory(QUESTIONS_VIEW, () -> new QuestionView(QUESTIONS_VIEW).getView());
         addViewFactory(QUESTION_VIEW, () -> new SingleQuestionView(QUESTION_VIEW).getView());
-
         addLayerFactory(MENU_LAYER, () -> new SidePopupView(new DrawerManager().getDrawer()));
     }
 
@@ -56,14 +55,12 @@ public class Javaquiz extends MobileApplication {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");
-            ex.printStackTrace();
         }
     }
 
     @Override
     public void postInit(Scene scene) {
         Swatch.PINK.assignTo(scene);
-
         scene.getStylesheets().add(Javaquiz.class.getResource("style.css").toExternalForm());
         ((Stage) scene.getWindow()).getIcons().add(new Image(Javaquiz.class.getResourceAsStream("/icon.png")));
     }
