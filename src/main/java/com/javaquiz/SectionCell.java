@@ -18,13 +18,22 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Comparator;
 
 /**
  *
  * @author cmkm
  */
 public class SectionCell extends CharmListCell<Section> {
-
+    Comparator<Question> byQuestion =
+	(Question o1, Question o2)->{
+            String id1 = o1.getQuestion_id();
+            String id2 = o2.getQuestion_id();
+            String[] tokens1 = id1.split(":");
+            String[] tokens2 = id2.split(":");
+            
+            return Integer.parseInt(tokens1[0]) - Integer.parseInt(tokens2[0]);
+        };
     private final ListTile tile;
 
     // TODO: custom completion graphics
@@ -69,6 +78,7 @@ public class SectionCell extends CharmListCell<Section> {
                 //System.out.println(rset);
                 //Sections.sectionList.add(new Section(rset.getString(1), rset.getString(2), String.valueOf(rset.getObject(3))));
             }
+            Questions.questionList.sort(byQuestion);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");
         }
