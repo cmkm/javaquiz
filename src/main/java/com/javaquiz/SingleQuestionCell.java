@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz;
 
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
 import com.javaquiz.model.SingleQuestion;
 
-/**
- *
- * @author James
- */
 public class SingleQuestionCell extends CharmListCell<SingleQuestion> {
 
     private final ListTile tile;

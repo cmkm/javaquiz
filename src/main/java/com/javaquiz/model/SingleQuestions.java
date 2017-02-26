@@ -29,7 +29,7 @@ public class SingleQuestions {
     public static final Button NEXT = new Button("Next");    
     public static ObservableList<RadioButton> radioList = FXCollections.observableArrayList();
     public static ObservableList<SingleQuestion> questionList = FXCollections.observableArrayList(
-            new SingleQuestion("0", "0", "0", "No Question Selected", "Here's a hint", "Here's a keyletter", tbg, tbs)
+            new SingleQuestion("0", "0", "0", "No Question Selected", "Here's a hint", "Here's a keyletter", tbg)
     //            new Question("2", "1", "1", "Question one?", false, "Here's a hint", "")
     );
     public static ObservableList<Button> buttonList = FXCollections.observableArrayList(

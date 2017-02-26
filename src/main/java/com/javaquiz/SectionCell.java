@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
-import static com.javaquiz.Javaquiz.SECTION_VIEW;
 import com.javaquiz.model.Question;
 import com.javaquiz.model.Questions;
 import com.javaquiz.model.Section;
@@ -20,20 +14,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Comparator;
 
-/**
- *
- * @author cmkm
- */
 public class SectionCell extends CharmListCell<Section> {
-    Comparator<Question> byQuestion =
-	(Question o1, Question o2)->{
-            String id1 = o1.getQuestion_id();
-            String id2 = o2.getQuestion_id();
-            String[] tokens1 = id1.split(":");
-            String[] tokens2 = id2.split(":");
-            
-            return Integer.parseInt(tokens1[0]) - Integer.parseInt(tokens2[0]);
-        };
+
+    Comparator<Question> byQuestion
+            = (Question o1, Question o2) -> {
+                String id1 = o1.getQuestion_id();
+                String id2 = o2.getQuestion_id();
+                String[] tokens1 = id1.split(":");
+                String[] tokens2 = id2.split(":");
+                return Integer.parseInt(tokens1[0]) - Integer.parseInt(tokens2[0]);
+            };
     private final ListTile tile;
 
     // TODO: custom completion graphics
@@ -55,14 +45,14 @@ public class SectionCell extends CharmListCell<Section> {
         super.updateItem(item, empty);
         if (item != null && !empty) {
             if (item.getName().equals("")) {
-                tile.textProperty().setAll(item.getSection_id());
+                tile.textProperty().setAll(item.getChapter_id() + "." + item.getSection_id());
             } else {
-                tile.textProperty().setAll(item.getSection_id() + ": " + item.getName());
+                tile.textProperty().setAll(item.getChapter_id() + "." + item.getSection_id() + ": " + item.getName());
             }
         }
         setGraphic(tile);
     }
-    
+
     public void populateQuestions(String sectionId, String chapterId) {
         try {
             Questions.questionList.clear();
@@ -70,13 +60,11 @@ public class SectionCell extends CharmListCell<Section> {
             System.out.println("Driver loaded");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
             Statement stmt = connection.createStatement();
-            String getSections = "Select * from question where chapterId = " + chapterId + " and sectionId = '" + sectionId+ "'";
+            String getSections = "Select * from question where chapterId = " + chapterId + " and sectionId = '" + sectionId + "'";
             ResultSet rset = stmt.executeQuery(getSections);
             while (rset.next()) {
-                Questions.questionList.add(new Question(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), 
-                        false, rset.getString(6), rset.getString(5)));
-                //System.out.println(rset);
-                //Sections.sectionList.add(new Section(rset.getString(1), rset.getString(2), String.valueOf(rset.getObject(3))));
+                Questions.questionList.add(new Question(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4),
+                        rset.getString(6), rset.getString(5)));
             }
             Questions.questionList.sort(byQuestion);
         } catch (ClassNotFoundException | SQLException ex) {

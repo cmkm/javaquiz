@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz.views;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -15,16 +10,13 @@ import com.javaquiz.ChapterCell;
 import com.javaquiz.Javaquiz;
 import com.javaquiz.model.Chapter;
 import com.javaquiz.model.Chapters;
-import java.util.Comparator;
 
 public class ChapterView extends View {
-    Comparator<Chapter> byChapter =
-	(Chapter o1, Chapter o2)->Integer.parseInt(o1.getChapter_id()) - Integer.parseInt(o2.getChapter_id());
+
     public static CharmListView<Chapter, Integer> charmListView;
 
     public ChapterView(String name) {
         super(name);   
-        Chapters.chapterList.sort(byChapter);
         charmListView = new CharmListView<>(Chapters.chapterList);
         charmListView.setCellFactory(p -> new ChapterCell());
         setCenter(charmListView);
@@ -47,7 +39,6 @@ public class ChapterView extends View {
     public View getView() {
         return new ChapterView("Chapters");
     }
-
 }
 
 

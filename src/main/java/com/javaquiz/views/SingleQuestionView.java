@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz.views;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -11,7 +6,6 @@ import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 import com.gluonhq.charm.glisten.mvc.View;
-import com.gluonhq.charm.glisten.visual.GlistenStyleClasses;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
@@ -29,14 +23,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-/**
- *
- * @author James
- */
 public class SingleQuestionView extends View {
 
     public static CharmListView<SingleQuestion, Integer> questionView;
@@ -51,8 +40,8 @@ public class SingleQuestionView extends View {
         VBox container = new VBox();
         questionView = new CharmListView<>(SingleQuestions.questionList);
         questionView.setMouseTransparent(true);
-        questionView.setMaxHeight(150);
-        questionView.setMinHeight(150);
+        questionView.setMaxHeight(300);
+        questionView.setMinHeight(250);
         container.getChildren().add(questionView);
         //Cell Factory isn't necessary but provides easy word wrap option for text
         questionView.setCellFactory(p -> new SingleQuestionCell());
@@ -88,15 +77,17 @@ public class SingleQuestionView extends View {
         Alert alert = null;
         String answer = questionList.get(0).getKeyLetter();
         boolean correct = true;
+        boolean selectionExists = false;
         for (int i = 0; i < questionList.get(0).getTBG().getToggles().size(); i++) {
             if (questionList.get(0).getTBG().getToggles().get(i).isSelected()) {
+                selectionExists = true;
                 if (!answer.contains(String.valueOf(choices.charAt(i)))) {
                     correct = false;
                     break;
                 }
             }
         }
-        if (correct) {
+        if (correct && selectionExists) {
             alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Correct!");
             Image check_img = new Image(getClass().getResourceAsStream("/check.png"));
             alert.setGraphic(new ImageView(check_img));
@@ -112,9 +103,8 @@ public class SingleQuestionView extends View {
             Image light = new Image(getClass().getResourceAsStream("/light.png"));
             Image bigLight = new Image(getClass().getResourceAsStream("/bigLight.png"));
             int question = QuestionView.questionListView.itemsProperty().lastIndexOf(QuestionView.questionListView.getSelectedItem());
-            System.out.println(question);
             Question nextQuestion = QuestionView.questionListView.itemsProperty().getValue().get(question + 1);
-            String sectionId = nextQuestion.getSectionId();
+            String sectionId = nextQuestion.getSection_id();
             String chapterId = nextQuestion.getChapter_id();
             String questionId = nextQuestion.getQuestion_id();
             String text = nextQuestion.getText();

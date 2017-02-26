@@ -10,11 +10,8 @@ import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
 import com.javaquiz.SectionCell;
 import com.javaquiz.model.Section;
 import com.javaquiz.model.Sections;
-import java.util.Comparator;
 
 public class SectionView extends View {
-//    Comparator<Section> bySection =
-//	(Section o1, Section o2)->Integer.parseInt(o1.getSection_id()) - Integer.parseInt(o2.getSection_id());
 
     public static CharmListView<Section, Integer> charmListView;
 
@@ -46,5 +43,4 @@ public class SectionView extends View {
     public View getView() {
         return new SectionView("Sections");
     }
-
 }

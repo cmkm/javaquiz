@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -23,16 +18,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
-/**
- *
- * @author cmkm
- */
 public class QuestionCell extends CharmListCell<Question> {
 
     private final ListTile tile;
@@ -43,7 +37,7 @@ public class QuestionCell extends CharmListCell<Question> {
         //tile.setPrimaryGraphic(MaterialDesignIcon.ASSIGNMENT.graphic());
         setText(null);
         tile.setOnMouseClicked(e -> {
-            String sectionId = super.itemProperty().getValue().getSectionId();
+            String sectionId = super.itemProperty().getValue().getSection_id();
             String chapterId = super.itemProperty().getValue().getChapter_id();
             String questionId = super.itemProperty().getValue().getQuestion_id();
             String qText = super.itemProperty().getValue().getText();
@@ -61,7 +55,7 @@ public class QuestionCell extends CharmListCell<Question> {
     public void updateItem(Question item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null && !empty) {
-            tile.textProperty().setAll(item.getSectionId() + ": " + item.getQuestion_id());
+            tile.textProperty().setAll(item.getChapter_id() + "." + item.getSection_id() + "." +item.getQuestion_id());
         }
         setGraphic(tile);
     }
@@ -87,21 +81,31 @@ public class QuestionCell extends CharmListCell<Question> {
             ResultSet rset = stmt.executeQuery(getSections);
             int i = 0;
             while (rset.next()) {
-                RadioButton tg = new RadioButton();
-                tg.setText(choices.charAt(i) + ": " + String.valueOf(rset.getObject(5)));
-                tbs.add(tg);
-                SingleQuestions.radioList.add(tg);
-                tbg.getToggles().add(tg);
+                RadioButton rb = new RadioButton();
+                //altering rb shape not working
+                Rectangle rec = new Rectangle();
+                
+                rb.setShape(rec);
+//                rb.setMaxWidth(MobileApplication.getInstance().getScreenWidth());
+//                rb.setMinWidth(MobileApplication.getInstance().getScreenWidth());
+                rb.setMaxWidth(300);
+//              text wrapping not working
+                rb.setWrapText(true);
+                rb.wrapTextProperty().set(true);
+                rb.setTextOverrun(OverrunStyle.CLIP);
+                rb.setText(choices.charAt(i) + ": " + String.valueOf(rset.getObject(5)));
+                tbs.add(rb);
+                SingleQuestions.radioList.add(rb);
+                tbg.getToggles().add(rb);
                 i++;
             }
             SingleQuestions.questionList.add(new SingleQuestion(questionId, chapterId, sectionId, qText,
-                    hint, key, tbg, tbs));
+                    hint, key, tbg));
             SingleQuestions.hintList.clear();
             try {
                 if (hint.length() > 0) {
                     
                     Button hintButton = new Button("", new ImageView(light));
-                    // hintButton.setStyle("-fx-background-color: #ffffff");
                     GlistenStyleClasses.applyStyleClass(hintButton, GlistenStyleClasses.BUTTON_FLAT);
                     hintButton.setOnAction(e -> showHint(bigLight));
                     SingleQuestions.hintList.add(hintButton);

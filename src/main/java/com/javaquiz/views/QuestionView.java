@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz.views;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
@@ -17,10 +12,6 @@ import com.javaquiz.model.Question;
 import com.javaquiz.model.Questions;
 import javafx.scene.layout.VBox;
 
-/**
- *
- * @author cmkm
- */
 public class QuestionView extends View {
 
     public static CharmListView<Question, Integer> questionListView;

@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javaquiz.model;
 
-/**
- *
- * @author cmkm
- */
 public class Section {
     
     private String section_id;
@@ -44,17 +35,9 @@ public class Section {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
-    
-   
-    
-    
-   
 
     @Override
     public String toString() {
         return section_id + ": " + name;
-    }
-    
+    }    
 }

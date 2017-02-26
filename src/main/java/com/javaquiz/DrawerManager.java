@@ -15,8 +15,8 @@ import static com.javaquiz.Javaquiz.PRIMARY_VIEW;
 import static com.javaquiz.Javaquiz.SECONDARY_VIEW;
 import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
-import static com.javaquiz.Javaquiz.QUESTION_VIEW;
 import static com.javaquiz.Javaquiz.SECTION_VIEW;
+import static com.javaquiz.Javaquiz.SUMMARY_VIEW;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -38,7 +38,8 @@ public class DrawerManager {
         final Item chapterItem = new ViewItem("Chapters", MaterialDesignIcon.BOOK.graphic(), CHAPTER_VIEW);
         final Item sectionItem = new ViewItem("Sections", MaterialDesignIcon.ASSIGNMENT.graphic(), SECTION_VIEW);
         final Item questionItem = new ViewItem("Questions", MaterialDesignIcon.QUESTION_ANSWER.graphic(), QUESTIONS_VIEW);
-        drawer.getItems().addAll(primaryItem, chapterItem, sectionItem, questionItem);
+        final Item summaryItem = new ViewItem("Summary", MaterialDesignIcon.GRADE.graphic(), SUMMARY_VIEW);
+        drawer.getItems().addAll(primaryItem, chapterItem, sectionItem, questionItem, summaryItem);
         
         if (Platform.isDesktop()) {
             final Item quitItem = new Item("Quit", MaterialDesignIcon.EXIT_TO_APP.graphic());
@@ -55,6 +56,7 @@ public class DrawerManager {
         
         MobileApplication.getInstance().viewProperty().addListener((obs, oldView, newView) -> updateItem(newView.getName()));
         updateItem(PRIMARY_VIEW);
+        
     }
     
     private void updateItem(String nameView) {
@@ -64,6 +66,7 @@ public class DrawerManager {
                 break;
             }
         }
+        drawer.setSelectedItem(null);
     }
     
     public NavigationDrawer getDrawer() {
