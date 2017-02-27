@@ -16,6 +16,9 @@ import com.javaquiz.model.Question;
 import com.javaquiz.model.SingleQuestion;
 import com.javaquiz.model.SingleQuestions;
 import static com.javaquiz.model.SingleQuestions.questionList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -54,47 +57,67 @@ public class SingleQuestionView extends View {
         buttonView = new ListView<>(SingleQuestions.buttonList);
         buttonView.setFocusTraversable(false);
         buttonView.setOrientation(Orientation.HORIZONTAL);
-        
+
         // apply styling to SUBMIT and NEXT btns
         // GlistenStyleClasses.applyStyleClass(buttonView.getItems().get(0), GlistenStyleClasses.BUTTON_FLAT);
-        
         // apply event handlers to SUBMIT and NEXT btns
         buttonView.getItems().get(0).setOnAction(e -> checkAnswer());
         buttonView.getItems().get(1).setOnAction(e -> getNextQuestion());
         hintView = new ListView<>(SingleQuestions.hintList);
         hintView.setOrientation(Orientation.HORIZONTAL);
-        
+
         HBox hb = new HBox();
         hb.setAlignment(Pos.CENTER);
         hb.getChildren().add(buttonView);
         hb.getChildren().add(hintView);
-        
+
         container.getChildren().add(hb);
         setCenter(container);
     }
 
     public void checkAnswer() {
-        Alert alert = null;
-        String answer = questionList.get(0).getKeyLetter();
-        boolean correct = true;
-        boolean selectionExists = false;
-        for (int i = 0; i < questionList.get(0).getTBG().getToggles().size(); i++) {
-            if (questionList.get(0).getTBG().getToggles().get(i).isSelected()) {
-                selectionExists = true;
-                if (!answer.contains(String.valueOf(choices.charAt(i)))) {
-                    correct = false;
-                    break;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Statement stmt = connection.createStatement();
+            String addUserData = "";
+
+            Alert alert = null;
+            String answer = questionList.get(0).getKeyLetter();
+            boolean correct = true;
+            boolean selectionExists = false;
+            for (int i = 0; i < questionList.get(0).getTBG().getToggles().size(); i++) {
+                if (questionList.get(0).getTBG().getToggles().get(i).isSelected()) {
+                    selectionExists = true;
+                    if (!answer.contains(String.valueOf(choices.charAt(i)))) {
+                        correct = false;
+                        break;
+                    }
                 }
             }
-        }
-        if (correct && selectionExists) {
-            alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Correct!");
-            Image check_img = new Image(getClass().getResourceAsStream("/check.png"));
-            alert.setGraphic(new ImageView(check_img));
-            alert.showAndWait();
-        } else {
-            alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Try again.");
-            alert.showAndWait();
+            if (correct && selectionExists) {
+                alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Correct!");
+                addUserData = "UPDATE UserData set correct = 1 where userId = '" + PrimaryPresenter.user + 
+                        "' and chapterId = " + questionList.get(0).getChapter_id() + 
+                        " and sectionID = "+ questionList.get(0).getSection_id() + 
+                        " and questionId = "+ questionList.get(0).getQuestion_id();
+                Image check_img = new Image(getClass().getResourceAsStream("/check.png"));
+                alert.setGraphic(new ImageView(check_img));
+                alert.showAndWait();
+            } else {
+                addUserData = "UPDATE UserData set correct = 0 where userId = '" + PrimaryPresenter.user + 
+                        "' and chapterId = " + questionList.get(0).getChapter_id() + 
+                        " and sectionID = "+ questionList.get(0).getSection_id() + 
+                        " and questionId = "+ questionList.get(0).getQuestion_id();
+                alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Try again.");
+                alert.showAndWait();
+            }
+            stmt.executeUpdate(addUserData);
+            System.out.println("udpated");
+            stmt.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -118,7 +141,7 @@ public class SingleQuestionView extends View {
             Alert alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION,
                     "There are no more questions in this section, please choose a new section.");
             alert.showAndWait();
-        }    
+        }
     }
 
     @Override

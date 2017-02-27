@@ -8,6 +8,7 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
+import static com.javaquiz.Javaquiz.SUMMARY_VIEW;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ import javafx.scene.layout.VBox;
 
 public class PrimaryPresenter {
 
-    public String user;
+    public static String user;
 
     @FXML
     private View primary;
@@ -91,7 +92,7 @@ public class PrimaryPresenter {
             String addUser = "INSERT INTO User (userId, password) VALUES ('" + user + "','" + password + "')";
             stmt.executeUpdate(addUser);
             this.user = user;
-            MobileApplication.getInstance().switchView(CHAPTER_VIEW);
+            MobileApplication.getInstance().switchView(SUMMARY_VIEW);
         } catch (ClassNotFoundException | SQLException ex) {
             Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "That user already exists,"
                     + " please try a different username");
@@ -110,7 +111,7 @@ public class PrimaryPresenter {
             String getUser = "select * from User where userId = '"+user+"' and password = '" + password + "'";
             stmt.executeQuery(getUser);
             this.user = user;
-            MobileApplication.getInstance().switchView(CHAPTER_VIEW);
+            MobileApplication.getInstance().switchView(SUMMARY_VIEW);
         } catch (ClassNotFoundException | SQLException ex) {
             Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "That username doesnt exist, "
                     + "please register as a new user.");

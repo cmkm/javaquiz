@@ -64,7 +64,7 @@ public class SectionCell extends CharmListCell<Section> {
             ResultSet rset = stmt.executeQuery(getSections);
             while (rset.next()) {
                 Questions.questionList.add(new Question(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4),
-                        rset.getString(6), rset.getString(5)));
+                        rset.getString(6), rset.getString(5), "Unanswered"));
             }
             Questions.questionList.sort(byQuestion);
         } catch (ClassNotFoundException | SQLException ex) {

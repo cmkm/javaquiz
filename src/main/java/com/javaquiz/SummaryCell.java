@@ -27,7 +27,8 @@ public class SummaryCell extends CharmListCell<Question> {
     public void updateItem(Question item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null && !empty) {
-            tile.textProperty().setAll(item.getChapter_id()+"."+item.getSection_id()+"."+item.getQuestion_id());            
+            tile.textProperty().setAll(item.getChapter_id()+"."+item.getSection_id()+"."+item.getQuestion_id() 
+                    + " : " + item.getStatus());            
             tile.setStyle("-fx-text-fill: red;");
         }
         setGraphic(tile);
