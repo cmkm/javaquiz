@@ -44,12 +44,6 @@ public class SummaryView extends View {
     public SummaryView(String name) {
         super(name);
         //need to get this to return view to PRIMARY_VIEW. May need to move to DrawerManager.java
-        if (PrimaryPresenter.user == null) {
-             Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Summaries are reserved for user accounts, please sign in to continue.");
-            alert.showAndWait();
-            MobileApplication.getInstance().switchView(PRIMARY_VIEW);
-        }
-        else {
         VBox vb = new VBox();
         Chapters.cbList.get(0).setOnAction(e -> pullData());
         pullData();
@@ -62,7 +56,6 @@ public class SummaryView extends View {
         qView.autosize();
         vb.getChildren().add(qView);
         setCenter(vb);
-        }
     }
 
     @Override
@@ -71,11 +64,7 @@ public class SummaryView extends View {
                 -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
                 -> MobileApplication.getInstance().switchView(CHAPTER_VIEW)));
-        try {
-            appBar.setTitleText(QuestionView.questionListView.getSelectedItem().getQuestion_id());
-        } catch (Exception ex) {
             appBar.setTitleText("Summary");
-        }
     }
 
     private void pullData() {
@@ -242,7 +231,7 @@ public class SummaryView extends View {
             Questions.questionList.clear();
             while (rset.next()) {
                 Questions.questionList.add(new Question(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4),
-                        rset.getString(6), rset.getString(5), "Unaswered"));
+                        rset.getString(6), rset.getString(5), "Unanswered"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");

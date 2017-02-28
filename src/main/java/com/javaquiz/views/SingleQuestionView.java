@@ -98,18 +98,18 @@ public class SingleQuestionView extends View {
             }
             if (correct && selectionExists) {
                 alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Correct!");
-                addUserData = "UPDATE UserData set correct = 1 where userId = '" + PrimaryPresenter.user + 
-                        "' and chapterId = " + questionList.get(0).getChapter_id() + 
-                        " and sectionID = "+ questionList.get(0).getSection_id() + 
-                        " and questionId = "+ questionList.get(0).getQuestion_id();
+                addUserData = "UPDATE UserData set correct = 1 where userId = '" + PrimaryPresenter.user
+                        + "' and chapterId = '" + questionList.get(0).getChapter_id()
+                        + "' and sectionID = '" + questionList.get(0).getSection_id()
+                        + "' and questionId = '" + questionList.get(0).getQuestion_id() + "'";
                 Image check_img = new Image(getClass().getResourceAsStream("/check.png"));
                 alert.setGraphic(new ImageView(check_img));
                 alert.showAndWait();
             } else {
-                addUserData = "UPDATE UserData set correct = 0 where userId = '" + PrimaryPresenter.user + 
-                        "' and chapterId = " + questionList.get(0).getChapter_id() + 
-                        " and sectionID = "+ questionList.get(0).getSection_id() + 
-                        " and questionId = "+ questionList.get(0).getQuestion_id();
+                addUserData = "UPDATE UserData set correct = 0 where userId = '" + PrimaryPresenter.user
+                        + "' and chapterId = '" + questionList.get(0).getChapter_id()
+                        + "' and sectionID = '" + questionList.get(0).getSection_id()
+                        + "' and questionId = '" + questionList.get(0).getQuestion_id() + "'";
                 alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Try again.");
                 alert.showAndWait();
             }

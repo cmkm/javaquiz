@@ -5,6 +5,7 @@ import com.gluonhq.charm.down.Services;
 import com.gluonhq.charm.down.plugins.LifecycleService;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.application.ViewStackPolicy;
+import com.gluonhq.charm.glisten.control.Alert;
 import com.gluonhq.charm.glisten.control.Avatar;
 import com.gluonhq.charm.glisten.control.NavigationDrawer;
 import com.gluonhq.charm.glisten.control.NavigationDrawer.Item;
@@ -17,6 +18,7 @@ import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
 import static com.javaquiz.Javaquiz.QUESTIONS_VIEW;
 import static com.javaquiz.Javaquiz.SECTION_VIEW;
 import static com.javaquiz.Javaquiz.SUMMARY_VIEW;
+import com.javaquiz.views.PrimaryPresenter;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -27,20 +29,21 @@ public class DrawerManager {
 
     public DrawerManager() {
         this.drawer = new NavigationDrawer();
-        
+
         NavigationDrawer.Header header = new NavigationDrawer.Header("Java Quiz",
                 "10th ed.",
                 new Avatar(21, new Image(DrawerManager.class.getResourceAsStream("/book.jpg"))));
         drawer.setHeader(header);
-        
+
         final Item primaryItem = new ViewItem("Home", MaterialDesignIcon.HOME.graphic(), PRIMARY_VIEW, ViewStackPolicy.SKIP);
         final Item secondaryItem = new ViewItem("Secondary", MaterialDesignIcon.DASHBOARD.graphic(), SECONDARY_VIEW);
         final Item chapterItem = new ViewItem("Chapters", MaterialDesignIcon.BOOK.graphic(), CHAPTER_VIEW);
         final Item sectionItem = new ViewItem("Sections", MaterialDesignIcon.ASSIGNMENT.graphic(), SECTION_VIEW);
         final Item questionItem = new ViewItem("Questions", MaterialDesignIcon.QUESTION_ANSWER.graphic(), QUESTIONS_VIEW);
         final Item summaryItem = new ViewItem("Summary", MaterialDesignIcon.GRADE.graphic(), SUMMARY_VIEW);
-        drawer.getItems().addAll(primaryItem, chapterItem, sectionItem, questionItem, summaryItem);
-        
+
+        drawer.getItems().addAll(chapterItem, sectionItem, questionItem, summaryItem);
+
         if (Platform.isDesktop()) {
             final Item quitItem = new Item("Quit", MaterialDesignIcon.EXIT_TO_APP.graphic());
             quitItem.selectedProperty().addListener((obs, ov, nv) -> {
@@ -50,15 +53,15 @@ public class DrawerManager {
             });
             drawer.getItems().add(quitItem);
         }
-        
-        drawer.addEventHandler(NavigationDrawer.ITEM_SELECTED, 
+
+        drawer.addEventHandler(NavigationDrawer.ITEM_SELECTED,
                 e -> MobileApplication.getInstance().hideLayer(MENU_LAYER));
-        
+
         MobileApplication.getInstance().viewProperty().addListener((obs, oldView, newView) -> updateItem(newView.getName()));
         updateItem(PRIMARY_VIEW);
-        
+
     }
-    
+
     private void updateItem(String nameView) {
         for (Node item : drawer.getItems()) {
             if (item instanceof ViewItem && ((ViewItem) item).getViewName().equals(nameView)) {
@@ -68,7 +71,7 @@ public class DrawerManager {
         }
         drawer.setSelectedItem(null);
     }
-    
+
     public NavigationDrawer getDrawer() {
         return drawer;
     }
