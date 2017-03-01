@@ -7,10 +7,10 @@ import com.gluonhq.charm.glisten.control.TextField;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
-import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
 import static com.javaquiz.Javaquiz.SUMMARY_VIEW;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.fxml.FXML;
@@ -34,7 +34,7 @@ import javafx.scene.paint.Color;
 
 public class PrimaryPresenter {
 
-    public static String user;
+    public static String user = "";
 
     @FXML
     private View primary;
@@ -47,8 +47,8 @@ public class PrimaryPresenter {
             if (newValue) {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setStyle("-fx-background-color: #ff516e; -fx-box-shadow: none;");
-                appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
-                        -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
+//                appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
+//                        -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
                 appBar.setTitleText("Home");
                 // appBar.getActionItems().add(MaterialDesignIcon.SEARCH.button(e -> 
                 //        System.out.println("Search")));
@@ -71,8 +71,7 @@ public class PrimaryPresenter {
         bg = new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5), Insets.EMPTY));
         
         TextField userName = new TextField();
-        userName.setBackground(bg);
-        userName.setPrefHeight(10);
+        userName.setStyle("-fx-background-color: white");
         userName.setPromptText("Username");
         userName.setId("usernameInput");
         
@@ -81,6 +80,7 @@ public class PrimaryPresenter {
         passwordField.setPromptText("Password");
         passwordField.setId("passwordInput");
         
+        passwordField.setStyle("-fx-background-color: white");
         VBox fields = new VBox();
         fields.setPadding(new Insets(20, 20, 20, 10));
         fields.setSpacing(5);
@@ -100,28 +100,34 @@ public class PrimaryPresenter {
         fields.getChildren().add(buttonHB);
 
         home_view.setCenter(fields);
+
         // home_view.getChildren().add(welcome_label);
 //        home_view.getChildren().add(book_view);
-
         primary.setCenter(home_view);
+        primary.requestFocus();
     }
 
     void registerUser(String user, String password) {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
-            Statement stmt = connection.createStatement();
-            String addUser = "INSERT INTO User (userId, password) VALUES ('" + user + "','" + password + "')";
-            stmt.executeUpdate(addUser);
-            this.user = user;
-            MobileApplication.getInstance().switchView(SUMMARY_VIEW);
+            if (user.length() > 4) {
+                Class.forName("com.mysql.jdbc.Driver");
+                System.out.println("Driver loaded");
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+                Statement stmt = connection.createStatement();
+                String addUser = "INSERT INTO User (userId, password) VALUES ('" + user + "','" + password + "')";
+                stmt.executeUpdate(addUser);
+                this.user = user;
+                MobileApplication.getInstance().switchView(SUMMARY_VIEW);
+            } else {
+                Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Username must contain atleast 5 characters.");
+                alert.showAndWait();
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "That user already exists,"
                     + " please try a different username");
             alert.showAndWait();
             ex.printStackTrace();
-            
+
         }
     }
 
@@ -131,14 +137,18 @@ public class PrimaryPresenter {
             System.out.println("Driver loaded");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
             Statement stmt = connection.createStatement();
-            String getUser = "select * from User where userId = '"+user+"' and password = '" + password + "'";
-            stmt.executeQuery(getUser);
-            this.user = user;
-            MobileApplication.getInstance().switchView(SUMMARY_VIEW);
+            String getUser = "select * from User where userId = '" + user + "' and password = '" + password + "'";
+            ResultSet rset = stmt.executeQuery(getUser);
+            if (rset.next()) {
+                stmt.executeQuery(getUser);
+                this.user = user;
+                MobileApplication.getInstance().switchView(SUMMARY_VIEW);
+            } else {
+                Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Incorrect username or password"
+                        + ", please try again");
+                alert.showAndWait();
+            }
         } catch (ClassNotFoundException | SQLException ex) {
-            Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "That username doesnt exist, "
-                    + "please register as a new user.");
-            alert.showAndWait();
             ex.printStackTrace();
         }
     }

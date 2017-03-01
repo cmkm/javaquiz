@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'org.javafxports.jfxmobile'
 
 repositories {
-    jcenter()
+    jcenter()   
     maven {
         url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
     }

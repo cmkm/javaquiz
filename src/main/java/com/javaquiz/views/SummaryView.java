@@ -29,27 +29,39 @@ public class SummaryView extends View {
 
     Comparator<Question> byQuestion
             = (Question o1, Question o2) -> {
-                String id1 = o1.getQuestion_id();
-                String id2 = o2.getQuestion_id();
-                String[] tokens1 = id1.split(":");
-                String[] tokens2 = id2.split(":");
-                return Integer.parseInt(tokens1[0]) - Integer.parseInt(tokens2[0]);
+                String qId1 = o1.getQuestion_id();
+                String qId2 = o2.getQuestion_id();
+                String sId1 = o1.getSection_id();
+                String sId2 = o2.getSection_id();
+                String cId1 = o1.getChapter_id();
+                String cId2 = o2.getChapter_id();
+                if (sId1.contains("-")) {
+                    String[] token = sId1.split("-");
+                    sId1 = token[0];
+                }
+                if (sId2.contains("-")) {
+                    String[] token = sId2.split("-");
+                    sId2 = token[0];
+                }
+                if (Integer.parseInt(cId1) - Integer.parseInt(cId2) == 0) {
+                    if (Integer.parseInt(sId1) - Integer.parseInt(sId2) == 0) {
+                        return Integer.parseInt(qId1) - Integer.parseInt(qId2);
+                    } else {
+                        return Integer.parseInt(sId1) - Integer.parseInt(sId2);
+                    }
+                } else {
+                return Integer.parseInt(cId1) - Integer.parseInt(cId2);
+                }
             };
     public static CharmListView<Question, Integer> qView;
     public static ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
             new PieChart.Data("Incorrect", 33),
-            new PieChart.Data("Unaswered", 33),
+            new PieChart.Data("Unanswered", 33),
             new PieChart.Data("Correct", 33));
 
     public SummaryView(String name) {
         super(name);
         //need to get this to return view to PRIMARY_VIEW. May need to move to DrawerManager.java
-        if (PrimaryPresenter.user == null) {
-             Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Summaries are reserved for user accounts, please sign in to continue.");
-            alert.showAndWait();
-            MobileApplication.getInstance().switchView(PRIMARY_VIEW);
-        }
-        else {
         VBox vb = new VBox();
         Chapters.cbList.get(0).setOnAction(e -> pullData());
         pullData();
@@ -62,7 +74,6 @@ public class SummaryView extends View {
         qView.autosize();
         vb.getChildren().add(qView);
         setCenter(vb);
-        }
     }
 
     @Override
@@ -71,11 +82,7 @@ public class SummaryView extends View {
                 -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
                 -> MobileApplication.getInstance().switchView(CHAPTER_VIEW)));
-        try {
-            appBar.setTitleText(QuestionView.questionListView.getSelectedItem().getQuestion_id());
-        } catch (Exception ex) {
             appBar.setTitleText("Summary");
-        }
     }
 
     private void pullData() {
@@ -135,13 +142,13 @@ public class SummaryView extends View {
                 System.out.println(correct);
                 pieChartData.get(2).setPieValue(rset.getInt(1));
                 getData = "Select COUNT(*) from userData where userId = '" + PrimaryPresenter.user + "' and correct = 0"
-                        + " and chapterId = " + getId[0];
+                        + " and chapterId = '" + getId[0] + "'";
                 rset = stmt.executeQuery(getData);
                 rset.next();
                 int incorrect = rset.getInt(1);
                 System.out.println(incorrect);
                 pieChartData.get(0).setPieValue(rset.getInt(1));
-                getData = "Select COUNT(*) from userData where userId = '" + PrimaryPresenter.user + "' and chapterId = " + getId[0];
+                getData = "Select COUNT(*) from userData where userId = '" + PrimaryPresenter.user + "' and chapterId = '" + getId[0] + "'";
                 rset = stmt.executeQuery(getData);
                 rset.next();
                 System.out.println(rset.getInt(1) - correct - incorrect);
@@ -201,7 +208,7 @@ public class SummaryView extends View {
             } else {
                 select = Chapters.cbList.get(0).getValue().toString();
                 String[] getId = select.split(":");
-                getData = "Select * from userData where userId = '" + PrimaryPresenter.user + "' and chapterId = " + getId[0];
+                getData = "Select * from userData where userId = '" + PrimaryPresenter.user + "' and chapterId = '" + getId[0] + "'";
             }
 
             ResultSet rset = stmt.executeQuery(getData);
@@ -242,7 +249,7 @@ public class SummaryView extends View {
             Questions.questionList.clear();
             while (rset.next()) {
                 Questions.questionList.add(new Question(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4),
-                        rset.getString(6), rset.getString(5), "Unaswered"));
+                        rset.getString(6), rset.getString(5), "Unanswered"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Failed");
