@@ -2,13 +2,13 @@ package com.javaquiz.views;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.Alert;
+
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.javaquiz.Javaquiz;
 import static com.javaquiz.Javaquiz.CHAPTER_VIEW;
-import static com.javaquiz.Javaquiz.PRIMARY_VIEW;
 import com.javaquiz.SummaryCell;
 import com.javaquiz.model.Chapters;
 import com.javaquiz.model.Question;
@@ -64,7 +64,7 @@ public class SummaryView extends View {
         //need to get this to return view to PRIMARY_VIEW. May need to move to DrawerManager.java
         VBox vb = new VBox();
         Chapters.cbList.get(0).setOnAction(e -> pullData());
-        pullData();
+        //pullData();
         vb.getChildren().add(Chapters.cbList.get(0));
         PieChart pc = new PieChart(pieChartData);
         pc.autosize();
@@ -78,6 +78,7 @@ public class SummaryView extends View {
 
     @Override
     protected void updateAppBar(AppBar appBar) {
+        pullData();
         appBar.setNavIcon(MaterialDesignIcon.MENU.button(e
                 -> MobileApplication.getInstance().showLayer(Javaquiz.MENU_LAYER)));
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
@@ -197,6 +198,7 @@ public class SummaryView extends View {
     }
 
     public void getUserData2(String select) {
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
