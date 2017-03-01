@@ -14,18 +14,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class PrimaryPresenter {
 
@@ -52,27 +57,45 @@ public class PrimaryPresenter {
 
         // set up main view
         Label welcome_label = new Label("Java Quiz: 10th Ed.");
-        Image book_img = new Image(getClass().getResourceAsStream("/book.jpg"));
+        Image book_img = new Image(getClass().getResourceAsStream("/book_cover.png"));
+        BackgroundSize bgs = new BackgroundSize(BackgroundSize.AUTO, 1.0, true, true, false, false);
         BackgroundImage bi = new BackgroundImage(book_img, BackgroundRepeat.REPEAT,
-                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+                bgs);
+        Background bg = new Background(bi);
         //ImageView book_view = new ImageView(book_img);
 
         BorderPane home_view = new BorderPane();
-        home_view.setBackground(new Background(bi));
-
+        home_view.setBackground(bg);
+        
+        bg = new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5), Insets.EMPTY));
+        
         TextField userName = new TextField();
+        userName.setBackground(bg);
+        userName.setPrefHeight(10);
         userName.setPromptText("Username");
+        userName.setId("usernameInput");
+        
         PasswordField passwordField = new PasswordField();
+        passwordField.setBackground(bg);
         passwordField.setPromptText("Password");
+        passwordField.setId("passwordInput");
+        
         VBox fields = new VBox();
+        fields.setPadding(new Insets(20, 20, 20, 10));
+        fields.setSpacing(5);
+        fields.setAlignment(Pos.CENTER);
+        fields.setMaxWidth(300);
         fields.getChildren().addAll(userName, passwordField);
 
         Button register = new Button("Register");
         register.setOnAction(e -> registerUser(userName.getText(), passwordField.getText()));
         Button logIn = new Button("Log In");
         logIn.setOnAction(e -> logIn(userName.getText(), passwordField.getText()));
+        
         HBox buttonHB = new HBox();
+        buttonHB.setAlignment(Pos.CENTER);
+        buttonHB.setSpacing(5);
         buttonHB.getChildren().addAll(register, logIn);
         fields.getChildren().add(buttonHB);
 

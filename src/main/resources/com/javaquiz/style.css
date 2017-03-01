@@ -9,3 +9,9 @@
     -fx-background-radius: 5;
     -fx-effect: none;
 }
+
+#usernameInput, 
+#passwordInput {
+    -fx-background-color: #fff;
+    -fx-background-radius: 5;
+}

@@ -6,6 +6,7 @@ import com.gluonhq.charm.glisten.control.CharmListCell;
 import com.gluonhq.charm.glisten.control.ListTile;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 import com.gluonhq.charm.glisten.visual.GlistenStyleClasses;
+import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import static com.javaquiz.Javaquiz.QUESTION_VIEW;
 import com.javaquiz.model.Question;
 import com.javaquiz.model.SingleQuestion;
@@ -34,7 +35,7 @@ public class QuestionCell extends CharmListCell<Question> {
     // TODO: custom completion graphics
     public QuestionCell() {
         this.tile = new ListTile();
-        //tile.setPrimaryGraphic(MaterialDesignIcon.ASSIGNMENT.graphic());
+        tile.setPrimaryGraphic(MaterialDesignIcon.QUESTION_ANSWER.graphic());
         setText(null);
         tile.setOnMouseClicked(e -> {
             String sectionId = super.itemProperty().getValue().getSection_id();
