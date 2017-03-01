@@ -33,7 +33,8 @@ public class QuestionView extends View {
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
                 -> MobileApplication.getInstance().switchView(SECTION_VIEW)));
         try {
-            appBar.setTitleText(SectionView.charmListView.getSelectedItem().toString());
+            appBar.setTitleText(SectionView.charmListView.getSelectedItem().getChapter_id() + "." +
+                    SectionView.charmListView.getSelectedItem().getSection_id());
         } catch (Exception ex) {
             appBar.setTitleText("Questions");
         }
