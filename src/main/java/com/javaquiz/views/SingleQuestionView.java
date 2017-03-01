@@ -113,8 +113,14 @@ public class SingleQuestionView extends View {
                 alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR, "Try again.");
                 alert.showAndWait();
             }
-            stmt.executeUpdate(addUserData);
-            System.out.println("udpated");
+            int k = stmt.executeUpdate(addUserData);
+            if (k == 1) {
+                System.out.println("udpated");
+            } else {
+                System.out.println("not udpated");
+            }
+             
+            
             stmt.close();
         } catch (Exception ex) {
             ex.printStackTrace();
