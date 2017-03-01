@@ -87,6 +87,7 @@ public class SingleQuestionView extends View {
             String answer = questionList.get(0).getKeyLetter();
             boolean correct = true;
             boolean selectionExists = false;
+            if (answer.length() == 1) {
             for (int i = 0; i < questionList.get(0).getTBG().getToggles().size(); i++) {
                 if (questionList.get(0).getTBG().getToggles().get(i).isSelected()) {
                     selectionExists = true;
@@ -95,6 +96,23 @@ public class SingleQuestionView extends View {
                         break;
                     }
                 }
+            }
+            } else {
+                correct = false;
+                int size = answer.length();
+                for (int i = 0; i < questionList.get(0).getTBG().getToggles().size(); i++) {
+                if (questionList.get(0).getTBG().getToggles().get(i).isSelected()) {
+                    selectionExists = true;
+                    if (answer.contains(String.valueOf(choices.charAt(i)))) {
+                        size--;
+                        
+                    }
+                }
+            }
+                if (size == 0) {
+                    correct = true;
+                }
+                
             }
             if (correct && selectionExists) {
                 alert = new Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Correct!");
