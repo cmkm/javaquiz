@@ -30,7 +30,7 @@ public class SectionView extends View {
         appBar.getActionItems().add(MaterialDesignIcon.ARROW_BACK.button(e
                 -> MobileApplication.getInstance().switchView(CHAPTER_VIEW)));
         try {
-            appBar.setTitleText(ChapterView.charmListView.getSelectedItem().toString());
+            appBar.setTitleText(ChapterView.charmListView.getSelectedItem().getChapter_id()+"."+ChapterView.charmListView.getSelectedItem().toString());
         } catch (Exception ex) {
             appBar.setTitleText("Sections");
         }

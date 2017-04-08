@@ -112,7 +112,7 @@ public class PrimaryPresenter {
             if (user.length() > 4) {
                 Class.forName("com.mysql.jdbc.Driver");
                 System.out.println("Driver loaded");
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+                Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
                 Statement stmt = connection.createStatement();
                 String addUser = "INSERT INTO User (userId, password) VALUES ('" + user + "','" + password + "')";
                 stmt.executeUpdate(addUser);
@@ -135,7 +135,7 @@ public class PrimaryPresenter {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             Statement stmt = connection.createStatement();
             String getUser = "select * from User where userId = '" + user + "' and password = '" + password + "'";
             ResultSet rset = stmt.executeQuery(getUser);

@@ -112,7 +112,7 @@ public class SummaryView extends View {
             String getData = "";
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             Statement stmt = connection.createStatement();
             if (select.equals("All")) {
                 getData = "Select COUNT(*) from userData where userId = '" + PrimaryPresenter.user + "' and correct = 1";
@@ -165,7 +165,7 @@ public class SummaryView extends View {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             Statement stmt = connection.createStatement();
             String getData = "Select * from userData where userId = '" + PrimaryPresenter.user + "'";
             rset = stmt.executeQuery(getData);
@@ -180,7 +180,7 @@ public class SummaryView extends View {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             String data = "Insert into userData (userId, chapterId, sectionId, questionId, correct) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(data);
             stmt.setString(1, PrimaryPresenter.user);
@@ -202,7 +202,7 @@ public class SummaryView extends View {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             Statement stmt = connection.createStatement();
             String getData = "";
             if (select.equals("All")) {
@@ -239,7 +239,7 @@ public class SummaryView extends View {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             Statement stmt = connection.createStatement();
             String getQuestions = "";
             if (select.equals("All")) {

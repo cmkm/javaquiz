@@ -79,7 +79,7 @@ public class SingleQuestionView extends View {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/javaquiz", "scott", "tiger");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://liang.armstrong.edu:3306/team5", "team5", "tiger");
             Statement stmt = connection.createStatement();
             String addUserData = "";
 
